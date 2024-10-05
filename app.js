@@ -4,7 +4,10 @@ const app = express();
 const port = 3000;
 
 app.set("view engine", "ejs");
+app.use(express.static('style'));
 app.use(express.static("public"));
+app.use(express.static('img'));
+app.use(express.static('obj'));
 app.use(express.urlencoded({ extended: true }));
 
 let name = "";
@@ -20,7 +23,7 @@ app.post("/submit", (req, res) => {
   password = req.body.password;
 
   if (name === "fathia" && password === "123456") {
-    res.redirect("/settings"); // Redirect ke halaman setelah login sukses
+    res.redirect("/homepage"); // Redirect ke halaman setelah login sukses
   } else {
     res.status(401).send("User Autentikasi Tidak ditemukan");
   }
@@ -41,12 +44,18 @@ app.get("/education", (req, res) => {
 });
 
 app.get("/homepage", authMiddleware, (req, res) => {
-  res.render("settings", {
+  res.render("education", {
     layout: "layouts/main-layout.ejs",
     title: "Homepage",
     navbar: "Home",
   });
 });
+
+app.get('/settings' ,(req, res) => {
+  res.render('settings', {layout: 'layouts/main-layout.ejs', title: 'Settings', navbar: 'Settings JS'});
+});
+
+
 
 app.listen(port, () => {
   console.log("App Listening on Port: 3000");
