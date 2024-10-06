@@ -1,18 +1,98 @@
 <h1>Setting Prototype</h1>
 
 <div class="row">
-    <div class="col-md-3 text-center">
-        <img src="prot1.jpg" class="img-thumbnail" alt="Gambar 1">
-    </div>
-    <div class="col-md-3 text-center">
-        <img src="prot2.jpg" class="img-thumbnail" alt="Gambar 2">
-    </div>
-    <div class="col-md-3 text-center">
-        <img src="prot3.jpg" class="img-thumbnail" alt="Gambar 3">
-    </div>
-    <div class="col-md-3 text-center">
-        <img src="prot4.jpg" class="img-thumbnail" alt="Gambar 4">
-    </div>
+  <div class="col-md-3 text-center">
+    <img src="prot1.jpg" class="img-thumbnail" alt="Gambar 1" />
+  </div>
+  <div class="col-md-3 text-center">
+    <img src="prot2.jpg" class="img-thumbnail" alt="Gambar 2" />
+  </div>
+  <div class="col-md-3 text-center">
+    <img src="prot3.jpg" class="img-thumbnail" alt="Gambar 3" />
+  </div>
+  <div class="col-md-3 text-center">
+    <img src="prot4.jpg" class="img-thumbnail" alt="Gambar 4" />
+  </div>
 </div>
 
 <h1>Data Data Prototype</h1>
+<div class="sketchfab-embed-wrapper">
+  <iframe
+    title="Fipoxygen"
+    frameborder="0"
+    allowfullscreen
+    mozallowfullscreen="true"
+    webkitallowfullscreen="true"
+    allow="autoplay; fullscreen; xr-spatial-tracking"
+    xr-spatial-tracking
+    execution-while-out-of-viewport
+    execution-while-not-rendered
+    web-share
+    src="https://sketchfab.com/models/0efacc6b2ed94a0c943f05df96a25e4e/embed"
+  >
+  </iframe>
+  <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4a4a4a">
+    <a
+      href="https://sketchfab.com/3d-models/fipoxygen-0efacc6b2ed94a0c943f05df96a25e4e?utm_medium=embed&utm_campaign=share-popup&utm_content=0efacc6b2ed94a0c943f05df96a25e4e"
+      target="_blank"
+      rel="nofollow"
+      style="font-weight: bold; color: #1caad9"
+    >
+      Fipoxygen
+    </a>
+    by
+    <a
+      href="https://sketchfab.com/syawqiarroyan?utm_medium=embed&utm_campaign=share-popup&utm_content=0efacc6b2ed94a0c943f05df96a25e4e"
+      target="_blank"
+      rel="nofollow"
+      style="font-weight: bold; color: #1caad9"
+    >
+      syawqiarroyan
+    </a>
+    on
+    <a
+      href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=0efacc6b2ed94a0c943f05df96a25e4e"
+      target="_blank"
+      rel="nofollow"
+      style="font-weight: bold; color: #1caad9; width: 300px; height: auto"
+      >Sketchfab</a
+    >
+  </p>
+</div>
+
+<h1>List Device FIPOXYGEN</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Device Number</th>
+      <th scope="col">Location</th>
+      <th scope="col">Condition</th>
+      <th scope="col">Degrees</th>
+      <th scope="col">PH Status</th>
+      <th scope="col">Settings</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% cariJSON.forEach((element, index) => { %>
+
+    <tr>
+      <th scope="row"><%= index + 1 %></th>
+      <td><%= element.location %></td>
+      <td><%= element.condition %></td>
+      <td><%= element.degrees %></td>
+      <td><%= element.status %></td>
+      <td>
+        <a
+          href="settings/<%= element.location %>"
+          class="btn btn-primary badges rounded-pill"
+          >Manage</a
+        >
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<div class="d-grid gap-2 mb-3">
+  <a href="/addprototype" class="btn btn-primary">+ Add Prototype</a>
+</div>

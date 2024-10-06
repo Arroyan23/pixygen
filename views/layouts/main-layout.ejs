@@ -66,11 +66,10 @@
       }
 
       .custom-img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover; /* Memastikan gambar tidak terdistorsi */
-        }
-
+        width: 150px;
+        height: 150px;
+        object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+      }
     </style>
 
     <title>Fipoxygen | <%= title %></title>
@@ -80,7 +79,20 @@
     <%- include('nav') %>
     <div class="container"><%- body %></div>
 
-    
+    <footer class="bg-success text-white text-center py-3 mt-3">
+      <div class="container">
+        <p class="mb-0">© 2024 Fipoxygen. All Rights Reserved.</p>
+        <ul class="list-unstyled d-flex justify-content-center">
+          <li class="mx-2">
+            <a href="#" class="text-white">Privacy Policy</a>
+          </li>
+          <li class="mx-2">
+            <a href="#" class="text-white">Terms of Service</a>
+          </li>
+          <li class="mx-2"><a href="#" class="text-white">Contact Us</a></li>
+        </ul>
+      </div>
+    </footer>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

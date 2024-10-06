@@ -1,13 +1,14 @@
-import express from "express";
-import expressLayout from "express-ejs-layouts";
+const express = require("express");
+const expressLayout = require("express-ejs-layouts");
+const prototype = require("./utils/loader.js");
 const app = express();
 const port = 3000;
 
 app.set("view engine", "ejs");
-app.use(express.static('style'));
+app.use(express.static("style"));
 app.use(express.static("public"));
-app.use(express.static('img'));
-app.use(express.static('obj'));
+app.use(express.static("img"));
+app.use(express.static("obj"));
 app.use(express.urlencoded({ extended: true }));
 
 let name = "";
@@ -23,9 +24,9 @@ app.post("/submit", (req, res) => {
   password = req.body.password;
 
   if (name === "fathia" && password === "123456") {
-    res.redirect("/homepage"); // Redirect ke halaman setelah login sukses
+    res.redirect("/settings"); // Redirect ke halaman setelah login sukses
   } else {
-    res.status(401).send("User Autentikasi Tidak ditemukan");
+    res.redirect("/");
   }
 });
 
@@ -34,7 +35,7 @@ const authMiddleware = (req, res, next) => {
   if (name === "fathia" && password === "123456") {
     next(); // Lanjut ke halaman berikutnya
   } else {
-    res.status(401).send("User Autentikasi Tidak ditemukan");
+    res.redirect("/");
   }
 };
 
@@ -43,7 +44,7 @@ app.get("/education", (req, res) => {
   res.render("education", { layout: "layouts/main-layout" });
 });
 
-app.get("/homepage", authMiddleware, (req, res) => {
+app.get("/homepage", (req, res) => {
   res.render("education", {
     layout: "layouts/main-layout.ejs",
     title: "Homepage",
@@ -51,11 +52,53 @@ app.get("/homepage", authMiddleware, (req, res) => {
   });
 });
 
-app.get('/settings' ,(req, res) => {
-  res.render('settings', {layout: 'layouts/main-layout.ejs', title: 'Settings', navbar: 'Settings JS'});
+app.get("/settings", authMiddleware, (req, res) => {
+  const cariJSON = prototype.loadJSON();
+  res.render("settings", {
+    layout: "layouts/main-layout.ejs",
+    title: "Settings",
+    navbar: "Settings JS",
+    cariJSON,
+  });
 });
 
+// buat untuk menerima detail dari tombol yang baru saja di klik
+// oleh usernya sendiri
 
+app.get("/settings/:nama", authMiddleware, (req, res) => {
+  const ambilLokasi = prototype.detailJSON(req.params.nama);
+  res.render("detail", {
+    layout: "layouts/main-layout.ejs",
+    title: "Detail Settings",
+    navbar: "Detail JS",
+    ambilLokasi,
+  });
+});
+
+app.get("/addprototype", authMiddleware, (req, res) => {
+  res.render("addprototype", {
+    layout: "layouts/main-layout.ejs",
+    title: "Menambahkan Prototype",
+    navbar: "Menambahkan Prototype",
+  });
+});
+
+app.post("/submitpro", (req, res) => {
+  const location = req.body.location;
+  const address = req.body.adress;
+  const id = req.body.protid;
+
+  prototype.addPrototypeJSON(location);
+  res.redirect("/success");
+});
+
+app.get("/success", authMiddleware, (req, res) => {
+  res.render("success", {
+    layout: "layouts/main-layout.ejs",
+    title: "Success",
+    navbar: "Berhasil Ditambahkan",
+  });
+});
 
 app.listen(port, () => {
   console.log("App Listening on Port: 3000");
